@@ -71,7 +71,8 @@ function App() {
     email: '',
     phone: '',
     paymentMethod: 'pix',
-    installments: 1
+    installments: 1,
+    ticketQuantity: 1
   });
   const [isProcessing, setIsProcessing] = useState(false);
   const [inscriptionSuccess, setInscriptionSuccess] = useState(false);
@@ -216,7 +217,9 @@ function App() {
   // ============================================
   const calculatePrice = () => {
     const PRECO_BASE = 30.0;
-    let valorTotal = PRECO_BASE;
+    const quantidade = formData.ticketQuantity || 1;
+    let valorBase = PRECO_BASE * quantidade;
+    let valorTotal = valorBase;
     
     if (formData.paymentMethod === 'credit') {
       let taxaPercentual = 0;
@@ -229,9 +232,9 @@ function App() {
         taxaPercentual = 0.0349;
       }
       
-      const taxaCartao = valorTotal * taxaPercentual;
-      const taxaAntecipacao = calcularTaxaAntecipacao(valorTotal, parcelas);
-      valorTotal = valorTotal + taxaCartao + taxaFixa + taxaAntecipacao;
+      const taxaCartao = valorBase * taxaPercentual;
+      const taxaAntecipacao = calcularTaxaAntecipacao(valorBase, parcelas);
+      valorTotal = valorBase + taxaCartao + taxaFixa + taxaAntecipacao;
     }
     
     const valorParcela = valorTotal / (parseInt(formData.installments) || 1);
@@ -320,7 +323,7 @@ function App() {
           phone: formData.phone,
           paymentMethod: formData.paymentMethod,
           installments: formData.installments,
-          ticketQuantity: 1, 
+          ticketQuantity: formData.ticketQuantity,
           amount: valorTotal,
           timestamp: new Date().toISOString(),
           event: 'Amadeus-paixaodecristo'
@@ -901,6 +904,57 @@ function App() {
                     </div>
                   </div>
 
+                  {/* Quantidade de Senhas */}
+                  <div>
+                    <h3 className="text-lg font-semibold mb-1 flex items-center">
+                      <Users className="mr-2 h-5 w-5" />
+                      Quantidade de Senhas (Espectadores)
+                    </h3>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      O aluno que se apresenta <strong>não precisa de senha</strong>. Adquira senhas apenas para quem irá <strong>assistir</strong> ao espetáculo (R$ 30,00 por pessoa).
+                    </p>
+
+                    <div className="flex items-center justify-between bg-orange-50 border border-orange-200 rounded-lg p-4">
+                      <div>
+                        <p className="font-medium text-sm">Senhas para assistir</p>
+                        <p className="text-xs text-muted-foreground">R$ 30,00 por pessoa</p>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          className="h-8 w-8 p-0 rounded-full border-orange-400 text-orange-600 hover:bg-orange-100"
+                          onClick={() => setFormData(prev => ({ ...prev, ticketQuantity: Math.max(1, prev.ticketQuantity - 1), installments: 1 }))}
+                          disabled={formData.ticketQuantity <= 1}
+                        >
+                          <Minus className="h-4 w-4" />
+                        </Button>
+                        <span className="text-xl font-bold w-8 text-center text-orange-800">
+                          {formData.ticketQuantity}
+                        </span>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          className="h-8 w-8 p-0 rounded-full border-orange-400 text-orange-600 hover:bg-orange-100"
+                          onClick={() => setFormData(prev => ({ ...prev, ticketQuantity: prev.ticketQuantity + 1, installments: 1 }))}
+                        >
+                          <Plus className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+
+                    {formData.ticketQuantity > 1 && (
+                      <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                        <p className="text-sm text-blue-800 flex items-center">
+                          <UserPlus className="h-4 w-4 mr-2 flex-shrink-0" />
+                          {formData.ticketQuantity} senhas selecionadas — {formData.ticketQuantity - 1} acompanhante{formData.ticketQuantity - 1 > 1 ? 's' : ''} além do responsável
+                        </p>
+                      </div>
+                    )}
+                  </div>
+
                   {/* Método de Pagamento */}
                   <div>
                     <h3 className="text-lg font-semibold mb-4">Método de Pagamento*</h3>
@@ -983,7 +1037,8 @@ function App() {
                       <div className="text-center" translate="no">
                         <h4 className="text-lg font-bold text-orange-800 mb-1">Valor Total</h4>
                         <div className="text-sm text-gray-600 mb-1">
-                          1 ingresso × R$ 30,00
+                          {formData.ticketQuantity} {formData.ticketQuantity === 1 ? 'senha' : 'senhas'} × R$ 30,00
+                          {formData.paymentMethod === 'credit' && ' + taxas do cartão'}
                         </div>
                         <div className="text-2xl font-bold text-orange-900">
                           R$ {valorTotal.toFixed(2).replace('.', ',')}
@@ -998,6 +1053,10 @@ function App() {
                             (inclui taxas do cartão)
                           </div>
                         )}
+                        <div className="mt-2 pt-2 border-t border-orange-300 text-xs text-orange-700 flex items-center justify-center">
+                          <CheckCircle className="h-3 w-3 mr-1" />
+                          Aluno que se apresenta: entrada gratuita (não incluído)
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1080,11 +1139,6 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
 
 
 
