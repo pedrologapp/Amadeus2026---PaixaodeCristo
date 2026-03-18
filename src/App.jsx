@@ -223,11 +223,11 @@ function App() {
   };
 
   // ============================================
-  // CÁLCULO DE PREÇO - R$ 30,00 POR PESSOA
+  // CÁLCULO DE PREÇO - R$ 25,00 POR PESSOA
   // Até 3x no cartão com juros
   // ============================================
   const calculatePrice = () => {
-    const PRECO_BASE = 30.0;
+    const PRECO_BASE = 25.0;
     const quantidade = formData.ticketQuantity || 1;
     let valorBase = PRECO_BASE * quantidade;
     let valorTotal = valorBase;
@@ -640,7 +640,7 @@ function App() {
                 <div className="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0"></div>
                 <div>
                   <p className="text-sm">
-                    O aluno que irá se <strong>apresentar no espetáculo terá entrada gratuita</strong>. Os demais acompanhantes pagam R$ 30,00 por pessoa.
+                    O aluno que irá se <strong>apresentar no espetáculo terá entrada gratuita</strong>. Os demais acompanhantes pagam R$ 25,00 por pessoa.
                   </p>
                 </div>
               </div>
@@ -676,7 +676,7 @@ function App() {
 
           <Card className="mb-8">
             <CardHeader className="text-center">
-              <CardTitle className="text-3xl text-primary" translate="no">R$ 30,00</CardTitle>
+              <CardTitle className="text-3xl text-primary" translate="no">R$ 25,00</CardTitle>
               <CardDescription>por PESSOA</CardDescription>
             </CardHeader>
             <CardContent>
@@ -711,7 +711,7 @@ function App() {
                     </li>
                     <li className="flex items-start">
                       <Shield className="h-4 w-4 text-destructive mr-2 mt-0.5" />
-                      Ingressos extras disponíveis pelo mesmo valor (R$ 30,00)
+                      Ingressos extras disponíveis pelo mesmo valor (R$ 25,00)
                     </li>
                     <li className="flex items-start">
                       <Shield className="h-4 w-4 text-destructive mr-2 mt-0.5" />
@@ -1016,13 +1016,13 @@ function App() {
                       Quantidade de Senhas (Espectadores)
                     </h3>
                     <p className="text-sm text-muted-foreground mb-4">
-                      O aluno que se apresenta <strong>não precisa de senha</strong>. Adquira senhas apenas para quem irá <strong>assistir</strong> ao espetáculo (R$ 30,00 por pessoa).
+                      O aluno que se apresenta <strong>não precisa de senha</strong>. Adquira senhas apenas para quem irá <strong>assistir</strong> ao espetáculo (R$ 25,00 por pessoa).
                     </p>
 
                     <div className="flex items-center justify-between bg-orange-50 border border-orange-200 rounded-lg p-4">
                       <div>
                         <p className="font-medium text-sm">Senhas para assistir</p>
-                        <p className="text-xs text-muted-foreground">R$ 30,00 por pessoa</p>
+                        <p className="text-xs text-muted-foreground">R$ 25,00 por pessoa</p>
                       </div>
                       <div className="flex items-center space-x-3">
                         <Button
@@ -1075,7 +1075,7 @@ function App() {
                           <div className="flex items-center space-x-2">
                             <span className="text-lg font-bold">PIX</span>
                             <span className="text-sm" translate="no">
-                              R$ {(30 * formData.ticketQuantity).toFixed(2).replace('.', ',')} (sem taxas)
+                              R$ {(25 * formData.ticketQuantity).toFixed(2).replace('.', ',')} (sem taxas)
                             </span>
                           </div>
                         </div>
@@ -1133,7 +1133,7 @@ function App() {
                       <div className="text-center" translate="no">
                         <h4 className="text-lg font-bold text-orange-800 mb-1">Valor Total</h4>
                         <div className="text-sm text-gray-600 mb-1">
-                          {formData.ticketQuantity} {formData.ticketQuantity === 1 ? 'senha' : 'senhas'} × R$ 30,00
+                          {formData.ticketQuantity} {formData.ticketQuantity === 1 ? 'senha' : 'senhas'} × R$ 25,00
                           {formData.paymentMethod === 'credit' && ' + taxas do cartão'}
                         </div>
                         <div className="text-2xl font-bold text-orange-900">
