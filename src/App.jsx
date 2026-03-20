@@ -154,8 +154,7 @@ function App() {
       let query = supabase
         .from('alunos')
         .select('*')
-        .ilike('nome_completo', `%${searchTerm}%`)
-        .in('serie', SERIES_DISPONIVEIS);
+        .ilike('nome_completo', `%${searchTerm}%`);
       
       if (selectedSerie) {
         query = query.eq('serie', selectedSerie);
