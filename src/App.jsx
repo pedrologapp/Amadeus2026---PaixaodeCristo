@@ -77,6 +77,7 @@ function App() {
   });
   const [isProcessing, setIsProcessing] = useState(false);
   const [inscriptionSuccess, setInscriptionSuccess] = useState(false);
+  const [paymentUrl, setPaymentUrl] = useState(null);
   
   // Estados para validação de CPF
   const [cpfError, setCpfError] = useState('');
@@ -155,8 +156,6 @@ function App() {
         .select('*')
         .ilike('nome_completo', `%${searchTerm}%`)
         .in('serie', SERIES_DISPONIVEIS);
-
-      query = query.in('serie', ['Grupo IV', 'Grupo V', 'Maternal(3)', 'Maternalzinho(2)', '1º Ano', '2º Ano', '3º Ano', '4º Ano', '5º Ano']);
       
       if (selectedSerie) {
         query = query.eq('serie', selectedSerie);
@@ -394,16 +393,14 @@ function App() {
           return;
         }
         
-        setInscriptionSuccess(true);
-  
-        setTimeout(() => {
-          if (responseData.paymentUrl) {
-            window.location.href = responseData.paymentUrl;
-          } else {
-            console.log('Link de pagamento não encontrado na resposta');
-            alert('Erro: Link de pagamento não encontrado. Entre em contato conosco.');
-          }
-        }, 1000);
+        if (responseData.paymentUrl) {
+          setPaymentUrl(responseData.paymentUrl);
+          setInscriptionSuccess(true);
+          // Tenta redirecionar diretamente (sem setTimeout para não bloquear em Android)
+          window.location.href = responseData.paymentUrl;
+        } else {
+          alert('Erro: Link de pagamento não encontrado. Entre em contato conosco.');
+        }
       } else {
         const errorData = await response.json();
         alert(errorData.message || 'Erro ao enviar dados para o servidor');
@@ -424,15 +421,35 @@ function App() {
             <div className="mx-auto mb-4 p-3 bg-green-100 rounded-full w-fit">
               <CheckCircle className="h-8 w-8 text-green-600" />
             </div>
-            <CardTitle className="text-green-600">Aguarde!</CardTitle>
-            <CardDescription>Redirecionando para o pagamento...</CardDescription>
+            <CardTitle className="text-green-600">Inscrição Registrada!</CardTitle>
+            <CardDescription>Finalize o pagamento para garantir sua vaga</CardDescription>
           </CardHeader>
-          <CardContent className="text-center">
-            <p className="text-sm text-muted-foreground mb-6">
-              Seus dados foram registrados com sucesso. Em instantes você será redirecionado para finalizar o pagamento.
+          <CardContent className="text-center space-y-4">
+            <p className="text-sm text-muted-foreground">
+              Seus dados foram registrados com sucesso. Clique no botão abaixo para ir para a página de pagamento.
             </p>
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600 mx-auto mb-4"></div>
-            <Button onClick={() => window.location.reload()} variant="outline" className="w-full">
+
+            {paymentUrl && (
+              <a
+                href={paymentUrl}
+                className="block w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-6 rounded-lg text-center text-lg transition-colors"
+                style={{textDecoration: 'none'}}
+              >
+                💳 IR PARA O PAGAMENTO
+              </a>
+            )}
+
+            <p className="text-xs text-gray-500">
+              Se o botão não abrir, copie e cole o link abaixo no seu navegador:
+            </p>
+
+            {paymentUrl && (
+              <div className="p-3 bg-gray-100 rounded border text-xs text-gray-700 break-all select-all cursor-text text-left">
+                {paymentUrl}
+              </div>
+            )}
+
+            <Button onClick={() => window.location.reload()} variant="outline" className="w-full mt-2">
               Voltar ao Início
             </Button>
           </CardContent>
