@@ -495,7 +495,7 @@ function App() {
           <div className="mt-12 flex justify-center items-center space-x-8 text-sm">
             <div className="flex items-center">
               <Calendar className="h-5 w-5 mr-2" />
-              <span translate="no">18 de Abril de 2026 (Sábado)</span>
+              <span translate="no">19 de Abril de 2026 (Domingo)</span>
             </div>
             <div className="flex items-center">
               <MapPin className="h-5 w-5 mr-2" />
@@ -563,7 +563,7 @@ function App() {
                   <Clock className="h-8 w-8 text-primary" />
                 </div>
                 <CardTitle>Data e Horário</CardTitle>
-                <CardDescription translate="no">18 de Abril de 2026</CardDescription>
+                <CardDescription translate="no">19 de Abril de 2026</CardDescription>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-center" translate="no">
@@ -632,7 +632,7 @@ function App() {
                 <div className="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0"></div>
                 <div>
                   <p className="text-sm">
-                    O espetáculo acontecerá no dia <span translate="no">18/04</span>, no <strong>período da tarde</strong>. O número de sessões será definido conforme a quantidade de participantes confirmados.
+                    O espetáculo acontecerá no dia <span translate="no">19/04</span>, no <strong>período da tarde</strong>. O número de sessões será definido conforme a quantidade de participantes confirmados.
                   </p>
                 </div>
               </div>
@@ -1248,7 +1248,7 @@ function App() {
             © 2026 Escola Centro Educacional Amadeus. Todos os direitos reservados.
           </p>
           <p className="text-xs mt-2 opacity-80" translate="no">
-            Paixão de Cristo - Centro Educacional Amadeus - 18 de Abril de 2026
+            Paixão de Cristo - Centro Educacional Amadeus - 19 de Abril de 2026
           </p>
         </div>
       </footer>
