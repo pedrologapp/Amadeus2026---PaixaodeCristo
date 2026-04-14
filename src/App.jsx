@@ -525,7 +525,7 @@ function App() {
                 </div>
                 <div className="flex items-start space-x-3">
                   <CheckCircle className="h-6 w-6 text-accent mt-1 flex-shrink-0" />
-                  <<p>Realização no <strong>Teatro Poti Cavalcanti</strong> — R. Alexandre Cavalcante, São Gonçalo do Amarante</p>
+                  <p>Realização no <strong>Teatro Poti Cavalcanti</strong> — R. Alexandre Cavalcante, São Gonçalo do Amarante</p>
                 </div>
                 <div className="flex items-start space-x-3">
                   <CheckCircle className="h-6 w-6 text-accent mt-1 flex-shrink-0" />
