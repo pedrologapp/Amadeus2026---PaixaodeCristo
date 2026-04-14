@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import './App.css';
 import { Button } from './components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './components/ui/card';
@@ -293,7 +292,6 @@ function App() {
       if (digits.length < 11) {
         setPhoneError('Telefone deve ter 11 dígitos com DDD'); setPhoneValid(false); return;
       }
-      // telefone ok — compara com confirmação se já preenchida
       const confirmDigits = telDigits(formData.phoneConfirm);
       if (confirmDigits && confirmDigits !== digits) {
         setPhoneError('Os telefones não coincidem'); setPhoneValid(false);
@@ -395,7 +393,6 @@ function App() {
         if (responseData.paymentUrl) {
           setPaymentUrl(responseData.paymentUrl);
           setInscriptionSuccess(true);
-          // Tenta redirecionar diretamente (sem setTimeout para não bloquear em Android)
           window.location.href = responseData.paymentUrl;
         } else {
           alert('Erro: Link de pagamento não encontrado. Entre em contato conosco.');
@@ -499,7 +496,7 @@ function App() {
             </div>
             <div className="flex items-center">
               <MapPin className="h-5 w-5 mr-2" />
-              Local: Teatro Poti Cavalcanti
+              Teatro Poti Cavalcanti
             </div>
           </div>
         </div>
@@ -511,7 +508,9 @@ function App() {
             <h2 className="text-4xl font-bold mb-4 gradient-text">Sobre o Evento</h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
               É com grande alegria que anunciamos a encenação da Paixão de Cristo. Este é sempre um 
-              evento emocionante e significativo para nossa comunidade escolar. O espetáculo acontecerá no <strong>Teatro Poti Cavalcanti</strong>, em São Gonçalo do Amarante, tornando este momento ainda mais especial para toda a família Amadeus.
+              evento emocionante e significativo para nossa comunidade escolar. O espetáculo acontecerá 
+              no <strong>Teatro Poti Cavalcanti</strong>, em São Gonçalo do Amarante, tornando este momento 
+              ainda mais especial para toda a família Amadeus.
             </p>
           </div>
 
@@ -630,7 +629,7 @@ function App() {
                 <div className="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0"></div>
                 <div>
                   <p className="text-sm">
-                    O espetáculo acontecerá no dia <span translate="no">19/04</span>, no <strong>período da tarde</strong>. O número de sessões será definido conforme a quantidade de participantes confirmados.
+                    O espetáculo acontecerá no dia <span translate="no">19/04</span>, no <strong>período da tarde</strong>, no <strong>Teatro Poti Cavalcanti</strong>. O número de sessões será definido conforme a quantidade de participantes confirmados.
                   </p>
                 </div>
               </div>
@@ -1246,7 +1245,7 @@ function App() {
             © 2026 Escola Centro Educacional Amadeus. Todos os direitos reservados.
           </p>
           <p className="text-xs mt-2 opacity-80" translate="no">
-            Paixão de Cristo - Centro Educacional Amadeus - 19 de Abril de 2026
+            Paixão de Cristo - Teatro Poti Cavalcanti - 19 de Abril de 2026
           </p>
         </div>
       </footer>
