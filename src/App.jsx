@@ -480,7 +480,7 @@ function App() {
             Paixão de Cristo
           </h1>
           <p className="text-xl md:text-2xl mb-8 opacity-90">
-            Espetáculo Teatral no Centro Educacional Amadeus
+            Espetáculo Teatral no Teatro Poti Cavalcanti
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
